@@ -1,8 +1,17 @@
 import { join } from 'path';
-import { Module } from '@nestjs/common';
+import { Controller, Get, Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import { AppResolver } from '@src/app.resolver';
+
+// Heartbeat end point
+@Controller('health')
+class HealthController {
+  @Get()
+  health(): string {
+    return `Server is up and running`;
+  }
+}
 
 @Module({
   imports: [
@@ -11,5 +20,6 @@ import { AppResolver } from '@src/app.resolver';
     }),
   ],
   providers: [AppResolver],
+  controllers: [HealthController],
 })
 export class AppModule {}
