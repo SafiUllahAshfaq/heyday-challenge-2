@@ -8,3 +8,12 @@ export class Partner {
   @Field()
   name!: string;
 }
+
+@ObjectType('RevenuePerPartner')
+export class RevenuePerPartner {
+  @Field(() => ID)
+  partnerId!: number;
+
+  @Field(() => Number)
+  revenue!: number;
+}
