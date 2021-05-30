@@ -2,7 +2,96 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Order {
+  id: ID!
+  date: DateTime!
+  employeeId: Float!
+  voucherId: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Employee {
+  id: ID!
+  name: String!
+  budget: Float!
+  companyId: Float!
+}
+
+type TaxDistrubution {
+  taxFree: Float!
+  taxable: Float!
+}
+
+type Expenditure {
+  budget: Float!
+  spent: Float!
+  remaining: Float!
+}
+
+type EmployeeExpenditure {
+  employee: Employee!
+  orders: [Order!]!
+  month: Float!
+  expenditure: Expenditure!
+  taxDistribution: TaxDistrubution!
+  companyId: Float!
+}
+
+type BenifitsOfEmployeesByCompany {
+  companyId: ID!
+  employees: [EmployeeExpenditure!]!
+}
+
+type Voucher {
+  id: ID!
+  amount: Float!
+  partnerId: Float!
+}
+
+type Company {
+  id: ID!
+  title: String!
+}
+
+type Partner {
+  id: ID!
+  name: String!
+}
+
+type RevenuePerPartner {
+  partnerId: ID!
+  revenue: Float!
+}
+
 type Query {
   """App info."""
   appInfo: String!
+
+  """First point of challenge."""
+  firstPoint(remainingAmount: Float!, months: [Float!]!): [BenifitsOfEmployeesByCompany!]!
+
+  """Second point of challenge."""
+  secondPoint(companyId: Float!, months: [Float!]!): [BenifitsOfEmployeesByCompany!]!
+
+  """Third point of challenge."""
+  thirdPoint: [RevenuePerPartner!]!
+
+  """Get all companies."""
+  companies: [Company!]!
+
+  """Get all employees."""
+  employees: [Employee!]!
+
+  """Get all orders."""
+  orders: [Order!]!
+
+  """Get all partners."""
+  partners: [Partner!]!
+
+  """Get all vouchers."""
+  vouchers: [Voucher!]!
 }
